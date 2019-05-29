@@ -1733,6 +1733,17 @@ class SupportCollectionTest extends TestCase
         );
     }
 
+    public function testReplace()
+    {
+        $data = new Collection(['1', 1, 2]);
+        $data->replace('1', null);
+        $this->assertEquals([null, null, 2], $data->all());
+
+        $data = new Collection(['1', 1, 2]);
+        $data->replace('1', null, true);
+        $this->assertEquals([null, 1, 2], $data->all());
+    }
+
     public function testTransform()
     {
         $data = new Collection(['first' => 'taylor', 'last' => 'otwell']);

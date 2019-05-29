@@ -1796,6 +1796,25 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
+     * Find and replace all occurances of an item
+     *
+     * @param  mixed  $find
+     * @param  mixed  $replace
+     * @param  bool  $strict
+     * @return $this
+     */
+    public function replace($find, $replace, bool $strict = false)
+    {
+        return $this->transform(function ($item) use ($find, $replace, $strict) {
+            if ($strict) {
+                return $item === $find ? $replace : $item;
+            }
+
+            return $item == $find ? $replace : $item;
+        });
+    }
+
+    /**
      * Transform each item in the collection using a callback.
      *
      * @param  callable  $callback
